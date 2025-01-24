@@ -1,5 +1,5 @@
 import argon2 from 'argon2'
-import jwt from "json"
+import jwt from "jsonwebtoken"
 import db from "../config/db.js"
 
 export const Login = async(req, res) => {
@@ -15,7 +15,7 @@ export const Login = async(req, res) => {
             return res.status(401).json({message: "invalid email or password"})
         }
 
-        const token = jwt.sign({id: user[0].id,email: user[0].email },process.env.JWT_SECRET,{
+        const token = jwt.sign({id: user[0].id,email: user[0].email },"SECRETKEY",{
             expiresIn : '1h'
         })
 
